@@ -1,62 +1,19 @@
-# bebop
-Dependencies :
+# Team Bebop
 
-absl-py==0.5.0
-astor==0.7.1
-audioread==2.1.6
-beautifulsoup4==4.6.3
-certifi==2018.8.24
-chardet==3.0.4
-click==6.7
-cycler==0.10.0
-decorator==4.3.0
-Flask==1.0.2
-future==0.16.0
-gast==0.2.0
-grpcio==1.15.0
-h5py==2.8.0
-idna==2.7
-itsdangerous==0.24
-Jinja2==2.10
-joblib==0.12.5
-Keras==2.2.2
-Keras-Applications==1.0.4
-Keras-Preprocessing==1.0.2
-kiwisolver==1.0.1
-librosa==0.6.2
-llvmlite==0.25.0
-Markdown==3.0
-MarkupSafe==1.0
-matplotlib==3.0.0
-numba==0.40.0
-numpy==1.14.5
-pandas==0.23.4
-playsound==1.2.2
-protobuf==3.6.1
-public==1.0.3
-PyAudio==0.2.11
-pycairo==1.17.1
-pygame==1.9.4
-pyglet==1.3.2
-pyparsing==2.2.1
-python-dateutil==2.7.3
-pytz==2018.5
-PyYAML==3.13
-requests==2.19.1
-resampy==0.2.1
-runcmd==0.0.2
-scikit-learn==0.19.2
-scipy==1.1.0
-simpleaudio==1.0.2
-six==1.11.0
-SpeechRecognition==3.8.1
-tensorboard==1.10.0
-tensorflow==1.10.1
-termcolor==1.1.0
-urllib3==1.23
-vlc==0.1.0
-watson-developer-cloud==2.1.0
-Wave==0.0.2
-websocket-client==0.47.0
-Werkzeug==0.14.1
-xlrd==1.1.0
+# Role
+Islam Azeddine Mennouchi - Software Engineer
+Shahzeb Afroze - Software Engineer
+
+Abdulaziz Chalya - Business/Strategy
+Eric D'Souza - Business/Strategy
+Harry Feng - Business/Strategy
+Masami Oslon - Business/Strategy
+
+Christina Park - UI/UX
+
+
+
+
+
+
+
