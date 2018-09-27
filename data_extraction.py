@@ -4,23 +4,16 @@
 """
 @author: Shahzeb Afroze
 
-threading is needed to run the program smoother
-need to record the music being played
+This uses the excel file as a quering database.
 
 """
 
-
-# from pprint import pprint
 import pandas as pd
-# import prepare_email
-# import email_invoice
 import time
 import os
 import random
 import subprocess
 from pygame import mixer
-
-
 
 # --------------------------------------- Start Recording Time -------------------------------------- #
 
@@ -28,12 +21,9 @@ t0 = time.time()
 pd.set_option('colheader_justify', 'center')
 pd.options.mode.chained_assignment = None  # default='warn'
 
-# path = os.getcwd()
-# os.chdir("..")
-
 # ------------------------------ Excel Data Extraction For Customer Invoices ------------------------ #
 
-file = "monthly_invoice.xlsx"
+file = "Music_list & customer_info.xlsx"
 
 X = pd.read_excel(file,index_col=False)
 # ---------------------------------------- Variables Needed ---------------------------------------- #
@@ -48,7 +38,7 @@ email_address = 'EMAIL'
 n = 0
 
 # temp database
-features = [ theme, song, artist, email_address ]
+features = [ theme, song ]
 raw = X[ features ]
 
 
@@ -74,7 +64,11 @@ def required(mood):
 	audio_file = os.path.join(os.getcwd(),"songs",file)
 	print(audio_file)
 
-	return_code = subprocess.call(["afplay", audio_file])
+	# return_code = subprocess.call(["afplay", audio_file])
+	mixer.init()
+	mixer.music.load(audio_file)
+	mixer.music.play()
+	
 	#return_code.kill()
 
 # 	list_of_songs = mood_songs[song]

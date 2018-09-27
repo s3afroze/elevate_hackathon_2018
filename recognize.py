@@ -1,3 +1,23 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+@author: Shahzeb Afroze
+@author: Islam Azeddine Mennouchi
+
+External Github Projects used: MITESHPUTHRANNEU/Speech-Emotion-Analyzer
+
+This script will load the pre trained model and classify the current input to select an appropriate song.
+
+If you have a recorded file, comment out the Live Demo and change the name for file.
+
+Todo list:
+Songs API
+Train Song and classify for emotion
+Create a relational database
+How to set up a different microphone(eatphones) so that song played doesnt mess it up.
+
+"""
 import librosa
 import librosa.display
 import numpy as np
@@ -25,81 +45,55 @@ from sklearn.preprocessing import LabelEncoder
 import wave
 from keras.models import model_from_json
 import data_extraction
-import threading
 import speech_recognition as sr
+import time 
+
+t0 = time.time()
+
+# ----------------------------------------------- LIVE DEMO ------------------------------------------ 
+
+import pyaudio
 
 
-#++++++++++++++++++++++++++Next Thread +++++++
-class Listen(object):
+CHUNK = 1024
+FORMAT = pyaudio.paInt16 #paInt8
+CHANNELS = 2
+RATE = 44100 #sample rate
+RECORD_SECONDS = 4
+WAVE_OUTPUT_FILENAME = "output11.wav"
+
+p = pyaudio.PyAudio()
+
+stream = p.open(format=FORMAT,
+                channels=CHANNELS,
+                rate=RATE,
+                input=True,
+                frames_per_buffer=CHUNK
+                ) #buffer
+                
+
+print("* recording")
+
+frames = []
+
+for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+    data = stream.read(CHUNK)
+    frames.append(data) # 2 bytes(16 bits) per channel
+
+print("* done recording")
+
+stream.stop_stream()
+stream.close()
+p.terminate()
+
+with wave.open(WAVE_OUTPUT_FILENAME, 'wb') as wf:
+
+	wf.setnchannels(CHANNELS)
+	wf.setsampwidth(p.get_sample_size(FORMAT))
+	wf.setframerate(RATE)
+	wf.writeframes(b''.join(frames))
 
 
-    def __init__(self, feeling,interval=1,):
-        """ Constructor
-        :type interval: int
-        :param interval: Check interval, in seconds
-        """
-        self.interval = interval
-        self.feeling = feeling
-
-        thread = threading.Thread(target=self.run, args=())
-        thread.daemon = True                            # Daemonize thread
-        thread.start()                                  # Start the execution
-
-    def run(self):
-        output = ""
-        while not "stop" in output:
-           harvard = sr.Recognizer()
-
-           with sr.Microphone() as source:
-              print("Rec")
-              audio = harvard.listen(source)
-              print("audio recording")
-           try:
-               output = speech.recognize_google(audio)
-           except sr.UnknownValueError:
-               print("Google Speech Recognition could not understand audio")
-           print(output)
-           if "next" in output:
-           	  print("next")
-           	  data_extraction.required(self.feeling)
-           if "mute" in output:
-              print(2)
-           speech_content = {"text": output }
-
-
-#++++++++++++++++++++++++++++++++++++++++++++++
-
-# --------------------------------- Needed to make changes if you want to play -----------------------------------
-# import pyaudio
-
-# CHUNK = 1024
-# FORMAT = pyaudio.paInt16 #paInt8
-# CHANNELS = 2
-# RATE = 44100 #sample rate
-# RECORD_SECONDS = 4
-# WAVE_OUTPUT_FILENAME = "output11.wav"
-
-# p = pyaudio.PyAudio()
-
-# stream = p.open(format=FORMAT,
-#                 channels=CHANNELS,
-#                 rate=RATE,
-#                 input=True,
-#                 frames_per_buffer=CHUNK) #buffer
-
-# print("* recording")
-
-# frames = []
-
-# for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-#     data = stream.read(CHUNK)
-#     frames.append(data) # 2 bytes(16 bits) per channel
-
-# print("* done recording")
-
-# stream.stop_stream()
-# stream.close()
-# p.terminate()
 
 # wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
 # wf.setnchannels(CHANNELS)
@@ -108,17 +102,13 @@ class Listen(object):
 # wf.writeframes(b''.join(frames))
 # wf.close()
 
-# loading json and creating model
+# ----------------------------------------- SENTIMENTAL ANALYSIS ------------------------------------
 
-# ------------------------------------------- ENDS -------------------------------------------------------
+# Live Demo
+file = "output11.wav"
 
-file = 'output10.wav'
-
-# UNCOMMENT & ASK
-file = raw_input("Which data set would you like to use?")
-
-# It is to be noted that both of the file is being currently used with IBM API and
-
+# File Demo
+# file = input("Which data set would you like to use?")
 
 subprocess.call(["afplay", file])
 
@@ -127,16 +117,16 @@ loaded_model_json = json_file.read()
 json_file.close()
 loaded_model = model_from_json(loaded_model_json)
 lb = LabelEncoder()
+
 # load weights into new model
 loaded_model.load_weights("saved_models/Emotion_Voice_Detection_Model.h5")
 print("Loaded model from disk")
 opt = keras.optimizers.rmsprop(lr=0.00001, decay=1e-6)
+
 # evaluate loaded model on test data
 loaded_model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
-#score = loaded_model.evaluate(x_testcnn, y_test, verbose=0)
-#print("%s: %.2f%%" % (loaded_model.metrics_names[1], score[1]*100))
+
 data, sampling_rate = librosa.load(file)
-#livedf= pd.DataFrame(columns=['feature'])
 X, sample_rate = librosa.load(file, res_type='kaiser_fast',duration=2.5,sr=22050*2,offset=0.5)
 sample_rate = np.array(sample_rate)
 mfccs = np.mean(librosa.feature.mfcc(y=X, sr=sample_rate, n_mfcc=13),axis=0)
@@ -144,7 +134,7 @@ featurelive = mfccs
 livedf2 = featurelive
 livedf2= pd.DataFrame(data=livedf2)
 livedf2 = livedf2.stack().to_frame().T
-livedf2
+
 twodim= np.expand_dims(livedf2, axis=2)
 livepreds = loaded_model.predict(twodim,
 						 batch_size=32,
@@ -153,14 +143,59 @@ livepreds1=livepreds.argmax(axis=1)
 liveabc = livepreds1.astype(int).flatten()
 
 # classification of the the person.
-feeling = ["female_angry","female_calm","female_fearful","female_happy","female_sad","male_angry","male_calm","male_fearful","male_happy","male_sad"]
-print(liveabc[0])
-print("\nAnalysis: " + feeling[liveabc[0]] + "\n")
-print(type(feeling[liveabc[0]]))
-#liste = Listen(feeling[liveabc[0]])
-data_extraction.required(feeling[liveabc[0]])
+feeling_list = ["female_angry","female_calm",
+			"female_fearful","female_happy",
+			"female_sad","male_angry",
+			"male_calm","male_fearful",
+			"male_happy","male_sad"]
 
+feeling = feeling_list[liveabc[0]]
 
+print("\nAnalysis: " + feeling + "\n")
+
+# Use the excel sheet as a relational database to select a song
+data_extraction.required(feeling)
+
+# ----------------------------------------- VOICE FEATURES ------------------------------------
+
+output = ""
+
+while not "stop" or not "mute" in output:
+
+	 harvard = sr.Recognizer()
+
+	 with sr.Microphone() as source:
+		
+			harvard.adjust_for_ambient_noise(source)
+			print("Voice Command")
+			audio = harvard.listen(source)
+			print("analyzing...")
+
+	 try:
+			 output = harvard.recognize_google(audio)
+
+	 except sr.UnknownValueError:
+			 print("Google Speech Recognition could not understand audio")
+
+	 except WaitTimeoutError:
+			print("Say something")
+
+	 print(output)
+
+	 if "next" in output:
+			print("changing song")
+			data_extraction.required(feeling)
+			print()
+
+	 if "download" in output:
+	 	print("sending email")
+
+	 speech_content = {"text": output }
+	 t1 = time.time()
+
+	 total = str(t1 - t0)
+	 print(total)
+ 
 
 # ------------------------------------------- ENDS -----------------------------------------
 
