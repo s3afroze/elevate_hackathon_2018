@@ -1,15 +1,19 @@
-# Team Bebop
+# Team Bebop 
 
 # Role
-Islam Azeddine Mennouchi - Software Engineer
-Shahzeb Afroze - Software Engineer
 
-Abdulaziz Chalya - Business/Strategy
-Eric D'Souza - Business/Strategy
-Harry Feng - Business/Strategy
-Masami Oslon - Business/Strategy
+## Software Engineer 
+1. Islam Azeddine Mennouchi 
+2. Shahzeb Afroze 
 
-Christina Park - UI/UX
+## Business/Strategy
+1. Abdulaziz Chalya 
+2. Eric D'Souza 
+3. Harry Feng 
+4. Masami Oslon 
+
+## UI/UX
+1. Christina Park 
 
 
 
