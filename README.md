@@ -1,6 +1,13 @@
 # Bebop.ai
 
-How to improve the emotion of customers calling to call centers? Increasing ROI on call centers and reducing the call times.
+## Intro
+The neural network model is capable of detecting five different male/female emotions from audio speeches. The ML is built on Deep Learning & NLP. The program also has speech recognition features.
+
+## Problem Statement
+How to improve the life of Torontians.
+
+## Solution
+How to improve the emotion of customers calling to call centers? Increasing ROI on call centers and reducing the call times. 
 
 ## Software Engineer 
 * Islam Azeddine Mennouchi 
@@ -33,23 +40,23 @@ pip install -r requirements.txt
 ``` 
 ## Creating & Running Virtualenv Demo
 
-* Install the library
+### Install the library
 ```
 pip install virtualenv
 ```
-* Creating a virtualenv
+### Creating a virtualenv
 ```
 which python3
 ```
-* Copy the output and replace the __(dir/python3)__
+Copy the output and replace the __(dir/python3)__
 ```
 virtualenv -p (dir/python3) email_env
 ```
-* Activating the virtualenv
+Activating the virtualenv
 ```
 source email_env/bin/activate
 ```
-* Setting up the virtualenv for the code.
+Setting up the virtualenv for the code.
 ```
 pip install -r final_requirements.txt
 ```
@@ -86,25 +93,17 @@ pip install -r final_requirements.txt
  python recognize.py
 
  ```
-3. Run 
-4. First line should be the schedule(__set in 24 hours only__) for opening the sites. The formatting for setting time is: __daily/weekends/weekdays@__ time in _24 hours_ with __hours__ and __minuites__ split by __.__.Setting a schedule to open a list of websites at __1pm daily__ will look lke this: 
-> __daily@13.00__ 
 
 ## Notes
-This was done, as I was personally frusrated to regularly open tabs to catch up with sites that I visit regularly. Also, this was a good coding exercise...
+We got placed Top 50 with this project while we were competing among full time engineers and grads students.
 
 ## Upcoming updates
-1. Chrome Extension
-2. Compatibility with python 3x
-
-## Built With
-Python 2.7
+1. Music API
+2. Train Song and classify for emotion
+3. How to set up a different microphone(eatphones) so that voice recognition performs better.
 
 ## Acknowledgments
-The resouces that has been the bedrock of my project:
-
-1. [Automate the Boring Stuff with Python written by Al Sweigart.](https://automatetheboringstuff.com/)
-2. MIT OpenCourseWare - [MIT course 6.0001](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/) taught by Dr. Ana Bell, Prof. Eric Grimson & Prof. John Guttag.
+Github User: [Mitesh Puthran](https://github.com/MITESHPUTHRANNEU/Speech-Emotion-Analyzer) 
 
 ## License
 Licensed under GNU General Public License v3.0. - afl-3.0
