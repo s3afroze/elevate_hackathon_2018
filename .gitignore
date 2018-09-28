@@ -4,5 +4,9 @@
 email_env/*
 */Extras/*
 Extras/*
+.DS_Store
+*/__pycache__/*
+__pycache__/*
+
 
 
