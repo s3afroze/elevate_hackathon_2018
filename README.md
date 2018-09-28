@@ -18,26 +18,50 @@ How to improve the emotion of customers calling to call centers? Increasing ROI 
 * Christina Park 
 
 ## Prerequisites
-* Just download the dependencies from the *final_requirements.txt* file.
-
-```
-pip install -r requirements.txt
-
-```
-
 * Python 3
-
 
 ## Installing
 You can follow the steps below if you dont know how to use the directory and/or github:
 1. Click __download or clone__ button above and download in _zip file_. 
 2. Unzip the folder in case you are downloading in the __zip form__.
+3. Just download the dependencies from the *final_requirements.txt* file.
+4. Recommended: Create a virtualenv for this program because there are a lot of dependencies. In case you don't know how to create and run a virtual env. Follow the __Creating & Running Virtualenv Demo__ below.
 
-## Setup (30 seconds max)
+```
+pip install -r requirements.txt
+
+``` 
+## Creating & Running Virtualenv Demo
+
+* Install the library
+```
+pip install virtualenv
+```
+* Creating a virtualenv
+```
+which python3
+```
+* Copy the output and replace the __(dir/python3)__
+```
+virtualenv -p (dir/python3) email_env
+```
+* Activating the virtualenv
+```
+source email_env/bin/activate
+```
+* Setting up the virtualenv for the code.
+```
+pip install -r final_requirements.txt
+```
+
+## Setup
 1. For legality purposes, I can't upload the song files.
 2. You need to put the song files in the songs folder.
 3. Copy the name of those song files; and put it on the excel file (removing the .mp3 extension).
 4. The Machine Learning Model differentiates gender and emotion while the IBM Tone Analyzer API offers only emotion level. 
+5. The IBM API integration is deleted in this code due to passkey secrecy.
+6. Go to __email_invoice.py__ and fill in the login information. It is to be noted that different email client will have varying SMTP. Currrently, it is set up for Gmail.
+7. If you are using some other client, you will need to change __server SMTP__ in __email_invoice.py__
 
 | Emotions from ML model | IBM Watson API|
 | ---------------------- |:-------------:|
@@ -53,19 +77,16 @@ You can follow the steps below if you dont know how to use the directory and/or 
 | male_happy             |               |
 | male_sad               |               |			
 			
-2. Type(exclude the quotation marks) __"crontab -e"__ to set a cronjob.
-3. Press __"i"__ to go in insert mode.
-4. Copy(exclude the quotation marks) __"* * * * * python "__ 
-5. Open the folder where you have downloaded this program and go to __Code__ folder.
-6. Drag the file __multiplefiles.py__ to the terminal and drop. It is to be noted that there is __space__ between each __*__ and then __space__ after the __5th *__ and then __space__ again before you drop file. It might look something like this: 
-> _* * * * * python /Users/Itsacruellife/Desktop/github_projects/automate-my-tabs/Code/multiplefiles.py_
-7. Press __esc button__ and copy/write(exclude the quotations) __":wq"__ 
-8. Congrats! You are done :smiley:
 
 ## How to use?
-1. There is a demo.txt file to show how the to add links and set time. __Highly Recommended__
-2. Currently, you can set the repeat to __daily,weekends or weekdays__(_updates coming soon for more flexibility_)
-3. Create a .txt file.
+1. Follow the setup and installing guide. __Highly Recommended__
+2. Open terminal and go to the __directory__ of the folder where you downloaded the code.
+
+ ```
+ python recognize.py
+
+ ```
+3. Run 
 4. First line should be the schedule(__set in 24 hours only__) for opening the sites. The formatting for setting time is: __daily/weekends/weekdays@__ time in _24 hours_ with __hours__ and __minuites__ split by __.__.Setting a schedule to open a list of websites at __1pm daily__ will look lke this: 
 > __daily@13.00__ 
 
