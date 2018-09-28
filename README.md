@@ -19,16 +19,13 @@ How to improve the emotion of customers calling to call centers? Increasing ROI 
 
 ## Prerequisites
 * Just download the dependencies from the *final_requirements.txt* file.
-'''
- pip install -r requirements.txt
 
-'''
-* Python 2.7 (_Most OS have python preinstalled._)
+```
+pip install -r requirements.txt
 
-Look at notes for more details on how to check your version.
-_Only required for an extra feature of adding websites to your favourite list(__not necessary__)_
+```
 
-3. __pip__ install _pyperclip_
+* Python 3
 
 
 ## Installing
@@ -36,9 +33,26 @@ You can follow the steps below if you dont know how to use the directory and/or 
 1. Click __download or clone__ button above and download in _zip file_. 
 2. Unzip the folder in case you are downloading in the __zip form__.
 
-## Setup (2 minute max)
-__linux or Unix-like/Mac OS__ come with a very handy tool known as __crontab__. You can read more on it [here](https://en.wikipedia.org/wiki/Cron).
-1. Go to the __terminal__ in your device. This might look daunting but trust me, it's gonna get over soon.
+## Setup (30 seconds max)
+1. For legality purposes, I can't upload the song files.
+2. You need to put the song files in the songs folder.
+3. Copy the name of those song files; and put it on the excel file (removing the .mp3 extension).
+4. The Machine Learning Model differentiates gender and emotion while the IBM Tone Analyzer API offers only emotion level. 
+
+| Emotions from ML model | IBM Watson API|
+| ---------------------- |:-------------:|
+| female_angry           | Joy           |
+| female_calm            | Fear          |
+| female_fearful         | Sadness       |
+| female_happy           | Anger         |
+| female_sad             | analytical    |
+|                        | confident     |
+| male_angry             | tentative     |
+| male_calm              |               |
+| male_fearful           |               |
+| male_happy             |               |
+| male_sad               |               |			
+			
 2. Type(exclude the quotation marks) __"crontab -e"__ to set a cronjob.
 3. Press __"i"__ to go in insert mode.
 4. Copy(exclude the quotation marks) __"* * * * * python "__ 
