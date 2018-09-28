@@ -7,7 +7,11 @@ The neural network model is capable of detecting five different male/female emot
 How to improve the life of Torontians.
 
 ## Solution
-How to improve the emotion of customers calling to call centers? Increasing ROI on call centers and reducing the call times. 
+Improving overall well-being of Torontonians by using music, data-driven results, and machine learning at the angriest place on earth: Call Centres.. 
+
+## Demo & Slideshow
+1. [Video](https://youtu.be/1EfA26LsY18)
+2. [Presentation](https://drive.google.com/open?id=1h9InrkUzXV9I8mSitv-c0lZLdn2wVRGo)
 
 ## Software Engineer 
 * Islam Azeddine Mennouchi 

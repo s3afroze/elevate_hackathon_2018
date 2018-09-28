@@ -6,6 +6,14 @@
 
 This uses the excel file as a quering database.
 
+Have to make a list of songs being played and use jinja to make a list
+Need to change the name of the music so that they appear properly in email.
+Either we can make a new list and go on to join them later in the code
+or we can go on to change the name of the files
+
+we can integrate the invoice code snippet and send a much neater email
+
+
 """
 
 import pandas as pd
@@ -14,6 +22,8 @@ import os
 import random
 import subprocess
 from pygame import mixer
+import email_invoice
+import prepare_email
 
 # --------------------------------------- Start Recording Time -------------------------------------- #
 
@@ -26,27 +36,27 @@ pd.options.mode.chained_assignment = None  # default='warn'
 file = "Music_list & customer_info.xlsx"
 
 X = pd.read_excel(file,index_col=False)
-# ---------------------------------------- Variables Needed ---------------------------------------- #
 
+# ---------------------------------------- Variables Needed ---------------------------------------- #
 
 # Column headers goes here
 theme = 'TYPE'
 song = 'SONG'
-artist = 'ARTIST'
-email_address = 'EMAIL'
 
 n = 0
 
 # temp database
 features = [ theme, song ]
-raw = X[ features ]
 
+raw = X[ features ]
 
 # ---------------------------------- Grouping Dataframe  ------------------------------------------- #
 
 theme_gb = X.groupby(theme)
 
 # ------------------------------- Preparing Information For Email --------------------------------- #
+
+songs_played = []
 
 def required(mood):
 
@@ -59,57 +69,30 @@ def required(mood):
 	n = random.randint(0, count-1)
 
 	# play song
-	file = list_of_songs[n] +".mp3"
+	file = list_of_songs[n] + ".mp3"
 
 	audio_file = os.path.join(os.getcwd(),"songs",file)
 	print(audio_file)
+
+	songs_played.append(file)
 
 	# return_code = subprocess.call(["afplay", audio_file])
 	mixer.init()
 	mixer.music.load(audio_file)
 	mixer.music.play()
-	
-	#return_code.kill()
 
-# 	list_of_songs = mood_songs[song]
+	# ---------------------------- Table Variables ------------------------- #
 
-# 	# static info
-# 	info = database_dict[ client ]
+def prep():
 
-# 	email = info.get(email_address)
-# 	parent_company = info.get(company)
+	client = "xyz"
+	email = "xyz@gmail.com"
 
-# 	# dynamic info
-# 	grouped = customer_gb.get_group(client).sort_values(by = [ sales ])
-# 	total_amount_owed = grouped[sales].sum()
+	html_body = prepare_email.magic(client,songs_played)
 
-# 	drop_columns = [ company, email_address, customer ]
-# 	customer_summary = grouped.drop(drop_columns, axis=1)
+	email_invoice.send_message(email, html_body)
 
-# 	variables_for_pdf = customer_summary.to_dict('list')
-
-# 	# ---------------------------- Table Variables ------------------------- #
-
-# 	# customer_summary.set_index(invoice, inplace=True)
-
-# 	# # Column headers in-line/note there is a new index = False so no idea
-# 	# customer_summary.columns.name = customer_summary.index.name
-# 	# customer_summary.index.name = None
-
-# 	# # Conversion & CSS setup
-# 	# customer_summary_html = customer_summary.to_html(classes='mystyle')
-
-
-
-# 	n+=1
-
-# 	html_body, attachment = prepare_email.magic(client, email, parent_company, variables_for_pdf, total_amount_owed)
-
-# 	email_invoice.send_message(email, html_body, attachment)
-
-# 	t1 = time.time()
-
-# total = str(t1 - t0)
-# number = str(n)
-# print('{} emails sent in {}'.format(number,total))
-# email_invoice.server.quit()
+t1 = time.time()
+total = str(t1 - t0)
+number = str(n)
+print('{} emails sent in {}'.format(number,total))

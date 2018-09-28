@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+
+    <meta charset="UTF-8">
+    <title>TCS</title>
+</head>
+<body>
+
+      <p>
+        
+        Hi {{ name }}, <br>
+
+        I’m writing to you on behalf of the Bebop team. We know that you really loved our songs so here is a list. Enjoy!! <br>  
+
+        {% for i in range(length) %}
+
+            <tr class="item">
+
+                    <td>
+                        {{ songs_played[i] }}
+                    </td>                    
+
+            </tr>                  
+            {% endfor %}
+        
+        <br> I hope you enjoyed our service! <br>
+
+        Thanks <br>
+        Bebop Team
+
+      </p>
+
+</body>
+</html>
+
+

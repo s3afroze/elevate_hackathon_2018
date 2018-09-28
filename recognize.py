@@ -7,15 +7,18 @@
 
 External Github Projects used: MITESHPUTHRANNEU/Speech-Emotion-Analyzer
 
-This script will load the pre trained model and classify the current input to select an appropriate song.
-
-If you have a recorded file, comment out the Live Demo and change the name for file.
+This script will classify the current input to select an appropriate song.
+If you have a recorded file, comment out the Live Demo and change the name for "file" variable.
 
 Todo list:
 Songs API
 Train Song and classify for emotion
-Create a relational database
+Create a relational database 
 How to set up a different microphone(eatphones) so that song played doesnt mess it up.
+Link it with how it would relate to the song being played
+Currently assuming one customer in mind.
+
+It might be a good idea to break the features
 
 """
 import librosa
@@ -68,8 +71,8 @@ stream = p.open(format=FORMAT,
                 channels=CHANNELS,
                 rate=RATE,
                 input=True,
-                frames_per_buffer=CHUNK
-                ) #buffer
+                frames_per_buffer=CHUNK)
+                
                 
 
 print("* recording")
@@ -78,7 +81,7 @@ frames = []
 
 for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
     data = stream.read(CHUNK)
-    frames.append(data) # 2 bytes(16 bits) per channel
+    frames.append(data)
 
 print("* done recording")
 
@@ -92,15 +95,6 @@ with wave.open(WAVE_OUTPUT_FILENAME, 'wb') as wf:
 	wf.setsampwidth(p.get_sample_size(FORMAT))
 	wf.setframerate(RATE)
 	wf.writeframes(b''.join(frames))
-
-
-
-# wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-# wf.setnchannels(CHANNELS)
-# wf.setsampwidth(p.get_sample_size(FORMAT))
-# wf.setframerate(RATE)
-# wf.writeframes(b''.join(frames))
-# wf.close()
 
 # ----------------------------------------- SENTIMENTAL ANALYSIS ------------------------------------
 
@@ -139,6 +133,7 @@ twodim= np.expand_dims(livedf2, axis=2)
 livepreds = loaded_model.predict(twodim,
 						 batch_size=32,
 						 verbose=1)
+
 livepreds1=livepreds.argmax(axis=1)
 liveabc = livepreds1.astype(int).flatten()
 
@@ -180,27 +175,25 @@ while not "stop" or not "mute" in output:
 	 except WaitTimeoutError:
 			print("Say something")
 
-	 print(output)
+	 print("You said: " + output)
 
-	 if "next" in output:
-			print("changing song")
+	 if "next song" in output:
+			print("Your wish is my command!")
+			print()
 			data_extraction.required(feeling)
 			print()
 
 	 if "download" in output:
-	 	print("sending email")
-
+	 	print("Check you email in a few seconds. Enjoy!!")
+	 	data_extraction.prep()
+	 	
 	 speech_content = {"text": output }
-	 t1 = time.time()
 
-	 total = str(t1 - t0)
-	 print(total)
- 
+t1 = time.time()
+total = str(t1 - t0)
+print(total)
+email_invoice.server.quit()
+
+
 
 # ------------------------------------------- ENDS -----------------------------------------
-
-
-
-# GARBAGE
-#livepredictions = (lb.inverse_transform((liveabc)))
-#livepredictions
