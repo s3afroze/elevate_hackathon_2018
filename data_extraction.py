@@ -22,7 +22,7 @@ import os
 import random
 import subprocess
 from pygame import mixer
-import email_invoice
+# import email_invoice # remove comment once login information has been entered
 import prepare_email
 
 # --------------------------------------- Start Recording Time -------------------------------------- #

@@ -185,7 +185,7 @@ while not "stop" or not "mute" in output:
 
 	 if "download" in output:
 	 	print("Check you email in a few seconds. Enjoy!!")
-	 	data_extraction.prep()
+	 	# data_extraction.prep() # remove the comment once you have integrated your login information for gmail
 	 	
 	 speech_content = {"text": output }
 
